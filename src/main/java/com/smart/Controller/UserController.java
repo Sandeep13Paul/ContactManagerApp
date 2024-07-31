@@ -37,7 +37,7 @@ public class UserController {
     private ContactRepository contactRepository;
 
     @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     //adding common data
     @ModelAttribute
