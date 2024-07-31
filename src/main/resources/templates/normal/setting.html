@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{normal/base::layout(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title th:text="${title}"></title>
+</head>
+<body>
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body my-5 text-center">
+
+                            <h1 class="text-center text-secondary font-weight-light">
+                                Change Password
+                            </h1>
+
+                            <form action="" th:action="@{/user/change-password}" method="post" class="mb-3">
+                                <div class="form-group">
+                                    <input name="oldpass" required type="text" class="form-control" placeholder="Enter old Password">
+                                </div>
+                                <div class="form-group">
+                                    <input name="newpass" required type="password" class="form-control" placeholder="Enter new Password">
+                                </div>
+                                <div class="container text-center">
+                                    <button type="submit" class="btn btn-success">Change</button>
+                                    <button type="reset" class="btn btn-warning">Reset</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                document.querySelectorAll('.item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                document.getElementById('setting-link').classList.add('active');
+            });
+        </script>
+    </section>
+
+</body>
+</html>

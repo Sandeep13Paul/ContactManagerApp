@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{normal/base::layout(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title th:text="${title}"></title>
+</head>
+<body>
+    <section>
+        <div class="card mr-3 ml-3">
+            <div class="card-body">
+                <h1 class="text-center">Your Contacts</h1>
+
+<!--                search-->
+                <div class="search-container my-4">
+                    <input onkeyup="search()" type="text" name="" id="search-input" class="form-control" placeholder="Search your contact">
+                    <div class="search-result">
+
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Phone no.</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="c : ${contacts}">
+
+                            <th scope="row" th:text="${c.cid}">1</th>
+                            <td>
+                                <img src="" alt="" th:alt="@{'/images/'}" th:src="@{'/images/' + ${c.cImageUrl}}" class="my_profile_picture" />
+                                <span th:text="${c.cname}"></span>
+                            </td>
+                            <td >
+                                <a href="#" th:href="@{'/user/contact/' + ${c.cid}}">
+                                    <span th:text="${c.email}"></span>
+                                </a>
+                            </td>
+                            <td th:text="${c.phone}">@mdo</td>
+                            <td style="display: flex;">
+                                <a th:onclick="'deleteContact(' + ${c.cid} + ')'" href="#"><i class="fas fa-trash" style="font-size: 20px;color: red;"></i></a>
+                                <form method="post" th:action="@{'/user/update-contact/' + ${c.cid}}" action="">
+                                    <button style="border: none; background: white; padding: 0;" type="submit"><i onclick="" class="far fa-edit ml-3" style="font-size: 20px;color: orange;"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+<!--                pagination part-->
+                <nav class="text-center" aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li th:if="${currentPage != 0}" class="page-item">
+                            <a class="page-link" href="#" aria-label="Previous" th:href="@{'/user/show-contacts/' + ${currentPage - 1}}">
+                                <span aria-hidden="true">&laquo;</span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                        </li>
+                        <li th:classappend="${currentPage == i - 1 ? 'active' : ' '}" th:each="i : ${#numbers.sequence(1, totalPages)}" class="page-item"><a class="page-link" href="#" th:href="@{'/user/show-contacts/' + ${i - 1}}"><span th:text="${i}"></span></a></li>
+                        <li th:if="${currentPage + 1 != totalPages}" class="page-item">
+                            <a class="page-link" href="#" aria-label="Next" th:href="@{'/user/show-contacts/' + ${currentPage + 1}}">
+                                <span aria-hidden="true">&raquo;</span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                document.querySelectorAll('.item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                document.getElementById('contacts-link').classList.add('active');
+            });
+        </script>
+    </section>
+</body>
+</html>
